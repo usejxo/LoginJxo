@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Sign Up</title>
+  <!-- Include the Netlify Identity Widget -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    /* Reset default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input[type="email"],
+    input[type="password"],
+    button {
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #user-content {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .identity-links {
+      margin-bottom: 20px;
+    }
+    .identity-links a {
+      display: block;
+      color: #007bff;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+    .identity-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login & Sign Up</h1>
+    <div class="identity-links">
+      <div data-netlify-identity-menu></div>
+    </div>
+    <button id="login-button">Login</button>
+    <div id="user-content">
+      <h2>Welcome</h2>
+      <p>This content is visible to all users.</p>
+    </div>
+  </div>
+
+  <!-- Initialize Netlify Identity -->
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var netlifyIdentity = window.netlifyIdentity;
+      if (netlifyIdentity) {
+        netlifyIdentity.init();
+      } else {
+        console.error('Netlify Identity not available.');
+      }
+
+      // Variable to hold reference to the Google Sites window
+      var googleSitesWindow = null;
+
+      // Function to handle login and redirection
+      function handleLogin(user) {
+        // Open Google Sites page in a new tab
+        googleSitesWindow = window.open('https://sites.google.com/view/jxo-com/home', '_blank');
+
+        // Update content (not visible if redirected immediately)
+        document.getElementById('user-content').innerHTML = `
+          <h2>Welcome ${user.user_metadata.full_name}</h2>
+          <p>You are logged in as ${user.email}</p>
+          <button onclick="logout()">Logout</button>
+        `;
+      }
+
+      // Listen for login events
+      netlifyIdentity.on('login', function(user) {
+        handleLogin(user);
+      });
+
+      // Listen for logout events
+      netlifyIdentity.on('logout', function() {
+        // Close the Google Sites tab if it exists
+        if (googleSitesWindow && !googleSitesWindow.closed) {
+          googleSitesWindow.close();
+        }
+        
+        // Reset content area
+        document.getElementById('user-content').innerHTML = `
+          <h2>Welcome</h2>
+          <p>You are logged out.</p>
+        `;
+      });
+
+      // Function to handle logout
+      function logout() {
+        netlifyIdentity.logout(); // Log out from Netlify Identity
+        // Optionally, you can redirect to another page after logout
+        // window.location.href = 'logout.html';
+      }
+
+      // Add event listener to the login button
+      document.getElementById('login-button').addEventListener('click', function() {
+        netlifyIdentity.open();
+      });
+    });
+  </script>
+</body>
+</html>
