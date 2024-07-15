@@ -69,6 +69,7 @@
   </div>
 
   <!-- Initialize Netlify Identity -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
       var netlifyIdentity = window.netlifyIdentity;
@@ -133,6 +134,13 @@
       // Add event listener to the don't login button
       document.getElementById('dont-login-button').addEventListener('click', function() {
         window.location.href = 'infipoop.html';
+      });
+
+      // Add event listener to redirect on 'P' key press
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'p' || event.key === 'P') {
+          window.location.href = 'https://jxo.netlify.app/infipoop.html';
+        }
       });
     });
   </script>
