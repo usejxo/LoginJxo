@@ -15,7 +15,7 @@
     }
     body {
       font-family: Arial, sans-serif;
-      background-color: #00ffe5;
+      background-color: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,7 +25,7 @@
       width: 100%;
       max-width: 400px;
       padding: 20px;
-      background-color: #0000ff;
+      background-color: #fff;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -33,20 +33,12 @@
     h1 {
       margin-bottom: 20px;
     }
-    form {
-      display: none; /* Hide forms initially */
-      flex-direction: column;
-    }
-    input[type="email"],
-    input[type="password"],
     button {
       margin-bottom: 10px;
       padding: 10px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 3px;
-    }
-    button {
       background-color: #007bff;
       color: white;
       border: none;
@@ -69,6 +61,7 @@
   <div class="container">
     <h1>Login & Sign Up</h1>
     <button id="login-button">Login</button>
+    <button id="dont-login-button">Don't Login</button>
     <div id="user-content">
       <h2>Welcome</h2>
       <p>This content is visible to all users.</p>
@@ -98,6 +91,7 @@
           <h2>Welcome ${user.user_metadata.full_name}</h2>
           <p>You are logged in as ${user.email}</p>
         `;
+        document.getElementById('login-button').innerText = 'Logout';
       }
 
       // Listen for login events
@@ -111,12 +105,13 @@
         if (googleSitesWindow && !googleSitesWindow.closed) {
           googleSitesWindow.close();
         }
-        
+
         // Reset content area
         document.getElementById('user-content').innerHTML = `
           <h2>Welcome</h2>
           <p>You are logged out.</p>
         `;
+        document.getElementById('login-button').innerText = 'Login';
       });
 
       // Function to handle logout
@@ -128,7 +123,16 @@
 
       // Add event listener to the login button
       document.getElementById('login-button').addEventListener('click', function() {
-        netlifyIdentity.open();
+        if (netlifyIdentity.currentUser()) {
+          logout();
+        } else {
+          netlifyIdentity.open();
+        }
+      });
+
+      // Add event listener to the don't login button
+      document.getElementById('dont-login-button').addEventListener('click', function() {
+        window.location.href = 'https://www.google.com';
       });
     });
   </script>
