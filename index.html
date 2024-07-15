@@ -82,10 +82,18 @@
       // Variable to hold reference to the Google Sites window
       var googleSitesWindow = null;
 
+      // URLs to toggle between
+      var urls = [
+        'https://jxo.netlify.app/infipoop.html',
+        'https://jxo.netlify.app/'
+      ];
+
+      var currentUrlIndex = 0;
+
       // Function to handle login and redirection
       function handleLogin(user) {
         // Open Google Sites page in a new tab
-        googleSitesWindow = window.open('https://sites.google.com/view/jxo-com/home', '_blank');
+        googleSitesWindow = window.open(urls[currentUrlIndex], '_blank');
 
         // Update content (not visible if redirected immediately)
         document.getElementById('user-content').innerHTML = `
@@ -133,13 +141,14 @@
 
       // Add event listener to the don't login button
       document.getElementById('dont-login-button').addEventListener('click', function() {
-        window.location.href = 'infipoop.html';
+        window.location.href = urls[currentUrlIndex];
       });
 
       // Add event listener to redirect on 'P' key press
       document.addEventListener('keydown', function(event) {
         if (event.key === 'p' || event.key === 'P') {
-          window.location.href = 'https://jxo.netlify.app/infipoop.html';
+          currentUrlIndex = (currentUrlIndex + 1) % urls.length;
+          window.location.href = urls[currentUrlIndex];
         }
       });
     });
