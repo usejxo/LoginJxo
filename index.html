@@ -69,7 +69,6 @@
   </div>
 
   <!-- Initialize Netlify Identity -->
-  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
       var netlifyIdentity = window.netlifyIdentity;
@@ -82,18 +81,10 @@
       // Variable to hold reference to the Google Sites window
       var googleSitesWindow = null;
 
-      // URLs to toggle between
-      var urls = [
-        'https://jxo.netlify.app/infipoop.html',
-        'https://jxo.netlify.app/'
-      ];
-
-      var currentUrlIndex = 0;
-
       // Function to handle login and redirection
       function handleLogin(user) {
         // Open Google Sites page in a new tab
-        googleSitesWindow = window.open(urls[currentUrlIndex], '_blank');
+        googleSitesWindow = window.open('https://sites.google.com/view/jxo-com/home', '_blank');
 
         // Update content (not visible if redirected immediately)
         document.getElementById('user-content').innerHTML = `
@@ -141,15 +132,7 @@
 
       // Add event listener to the don't login button
       document.getElementById('dont-login-button').addEventListener('click', function() {
-        window.location.href = urls[currentUrlIndex];
-      });
-
-      // Add event listener to redirect on 'P' key press
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'p' || event.key === 'P') {
-          currentUrlIndex = (currentUrlIndex + 1) % urls.length;
-          window.location.href = urls[currentUrlIndex];
-        }
+        window.location.href = 'infipoop.html';
       });
     });
   </script>
