@@ -34,7 +34,7 @@
       margin-bottom: 20px;
     }
     form {
-      display: flex;
+      display: none; /* Hide forms initially */
       flex-direction: column;
     }
     input[type="email"],
@@ -63,26 +63,11 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    .identity-links {
-      margin-bottom: 20px;
-    }
-    .identity-links a {
-      display: block;
-      color: #007bff;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
-    .identity-links a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Login & Sign Up</h1>
-    <div class="identity-links">
-      <div data-netlify-identity-menu></div>
-    </div>
     <button id="login-button">Login</button>
     <div id="user-content">
       <h2>Welcome</h2>
