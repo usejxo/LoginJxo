@@ -7,10 +7,18 @@
     <script>
         function showAlert() {
             let userInput = prompt("Debug Console:", "");
-            if (userInput === "dev.access(true)") {
-                window.location.href = "https://www.google.com";
-            } else {
-                alert("Access denied!");
+            switch (userInput) {
+                case "dev.access(true)":
+                    window.location.href = "https://www.google.com";
+                    break;
+                case "minecraft.use":
+                    window.location.href = "https://astroeagler.netlify.app";
+                    break;
+                case "dev.access(user)":
+                    window.location.href = "https://www.user-profile.com";
+                    break;
+                default:
+                    alert("Access denied!");
             }
         }
     </script>
