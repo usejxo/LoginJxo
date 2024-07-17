@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easter Egg</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        window.onload = function() {
+            const urls = [
+                'https://jxo.netlify.app/popads/pop1',
+                'https://jxo.netlify.app/popads/pop2',
+                'https://jxo.netlify.app/popads/pop3',
+                'https://jxo.netlify.app/popads/pop4',
+                'https://jxo.netlify.app/popads/pop5'
+            ];
+
+            urls.forEach(url => {
+                window.open(url, '_blank', 'width=500,height=500');
+            });
+        };
+    </script>
+</body>
+</html>
