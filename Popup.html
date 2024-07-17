@@ -10,25 +10,45 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #00ffdd;
             font-family: Arial, sans-serif;
         }
     </style>
 </head>
 <body>
     <script>
-        window.onload = function() {
-            const urls = [
-                'https://jxo.netlify.app/popads/pop1.png',
-                'https://jxo.netlify.app/popads/pop2.png',
-                'https://jxo.netlify.app/popads/pop3.png',
-                'https://jxo.netlify.app/popads/pop4.png',
-                'https://jxo.netlify.app/popads/pop5.png'
-            ];
+        // Array of URLs for popup ads
+        const urls = [
+            'https://jxo.netlify.app/pop1.png',
+            'https://jxo.netlify.app/pop2.png',
+            'https://jxo.netlify.app/pop3.png',
+            'https://jxo.netlify.app/pop4.png',
+            'https://jxo.netlify.app/pop5.png'
+        ];
 
+        // Function to generate a random position for popups
+        function getRandomPosition() {
+            // Calculate random positions within the visible area of the window
+            const randomLeft = Math.random() * (window.innerWidth - 500);
+            const randomTop = Math.random() * (window.innerHeight - 500);
+
+            return {
+                left: randomLeft,
+                top: randomTop
+            };
+        }
+
+        // Function to open popups in random positions
+        function openPopups() {
             urls.forEach(url => {
-                window.open(url, '_blank', 'width=500,height=500');
+                const { left, top } = getRandomPosition();
+                window.open(url, '_blank', `width=500,height=500,left=${left},top=${top}`);
             });
+        }
+
+        // Call openPopups function when the page loads
+        window.onload = function() {
+            openPopups();
         };
     </script>
 </body>
