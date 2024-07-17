@@ -15,7 +15,7 @@
     }
     body {
       font-family: Arial, sans-serif;
-      background-color: #00ffee;
+      background-color: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,7 +25,7 @@
       width: 100%;
       max-width: 400px;
       padding: 20px;
-      background-color: #0000ff;
+      background-color: #fff;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -51,7 +51,7 @@
     #user-content {
       margin-top: 20px;
       padding: 20px;
-      background-color: #16f28f;
+      background-color: #f9f9f9;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
@@ -64,7 +64,8 @@
     <button id="dont-login-button">Don't Login</button>
     <div id="user-content">
       <h2>Welcome</h2>
-      <p>Not logging in will not give you access to the full Site.<br>Please log in to gain access.</p>
+      <p>This content is visible to all users.</p>
+      <p>Not logging in will not give you access to the dashboard.<br>Please log in to continue.</p>
     </div>
   </div>
 
@@ -80,6 +81,7 @@
 
       // Variable to hold reference to the Google Sites window
       var googleSitesWindow = null;
+      var isPageClosing = false;
 
       // Function to handle login and redirection
       function handleLogin(user) {
@@ -110,6 +112,7 @@
         document.getElementById('user-content').innerHTML = `
           <h2>Welcome</h2>
           <p>You are logged out.</p>
+          <p>Not logging in will not give you access to the dashboard.<br>Please log in to continue.</p>
         `;
         document.getElementById('login-button').innerText = 'Login';
       });
@@ -117,8 +120,6 @@
       // Function to handle logout
       function logout() {
         netlifyIdentity.logout(); // Log out from Netlify Identity
-        // Optionally, you can redirect to another page after logout
-        // window.location.href = 'logout.html';
       }
 
       // Add event listener to the login button
@@ -132,7 +133,19 @@
 
       // Add event listener to the don't login button
       document.getElementById('dont-login-button').addEventListener('click', function() {
-        window.location.href = 'https://sites.google.com/stu.wisd.org/jxotechnotlogin/home';
+        window.location.href = 'https://www.google.com';
+      });
+
+      // Listen for beforeunload to detect page close
+      window.addEventListener('beforeunload', function(event) {
+        isPageClosing = true;
+      });
+
+      // Close Google Sites tab on unload if page is closing
+      window.addEventListener('unload', function(event) {
+        if (isPageClosing && netlifyIdentity.currentUser() && googleSitesWindow && !googleSitesWindow.closed) {
+          googleSitesWindow.close();
+        }
       });
     });
   </script>
