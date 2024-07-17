@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Console</title>
+    <script>
+        function showAlert() {
+            let userInput = prompt("Debug Console:", "");
+            if (userInput === "dev.access(true)") {
+                window.location.href = "https://www.google.com";
+            } else {
+                alert("Access denied!");
+            }
+        }
+    </script>
+</head>
+<body onload="showAlert()">
+</body>
+</html>
