@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev password</title>
+</head>
+<body>
+    <h2>Upload Password File</h2>
+    <p>Click the button below to upload your password.html file.</p>
+    <button onclick="document.getElementById('fileInput').click()">Upload Password</button>
+    <input type="file" id="fileInput" style="display: none;" accept=".html">
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const contents = event.target.result;
+                if (isValidPasswordFile(contents)) {
+                    window.location.href = 'https://www.google.com'; // Redirect to Google.com
+                } else {
+                    alert('Invalid password file. Please upload a file with the correct username and password.');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function isValidPasswordFile(contents) {
+            // Check if the file contents match the expected format
+            return /username:dev[\s\S]*password:eagler/.test(contents);
+        }
+    </script>
+</body>
+</html>
