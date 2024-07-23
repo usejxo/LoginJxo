@@ -20,6 +20,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      position: relative;
     }
     .container {
       width: 100%;
@@ -30,6 +31,35 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
       position: relative;
+    }
+    .top-left-container, .top-right-container {
+      position: absolute;
+      top: 10px;
+    }
+    .top-left-container {
+      left: 10px;
+      display: none;
+    }
+    .top-right-container {
+      right: 10px;
+    }
+    .games-button, .debug-console-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .games-button:hover, .debug-console-button:hover {
+      background-color: #0056b3;
+    }
+    .top-left-container p {
+      margin: 0;
+      font-size: 14px;
+      color: #007bff;
     }
     h1 {
       margin-bottom: 20px;
@@ -62,26 +92,17 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    #debug-console-button {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      display: none;
-      padding: 10px 20px;
-      font-size: 14px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    #debug-console-button:hover {
-      background-color: #218838;
-    }
   </style>
 </head>
 <body>
+  <div class="top-right-container">
+    <a href="https://jxogames.netlify.app" class="games-button">Games</a>
+  </div>
+  <div class="top-left-container" id="top-left-container">
+    <p>Easter eggs</p>
+    <p>Type help when you click debug console</p>
+    <button id="debug-console-button" class="debug-console-button">Debug Console</button>
+  </div>
   <div class="container">
     <h1>Login & Sign Up</h1>
     <button id="login-button">Login</button>
@@ -96,7 +117,6 @@
       <p>This content is visible to all users.</p>
       <p>Not logging in will not give you access to the dashboard.<br>Please log in to continue.</p>
     </div>
-    <button id="debug-console-button">Debug</button>
   </div>
 
   <!-- Initialize Netlify Identity -->
@@ -124,7 +144,7 @@
           <p>You are logged in as ${user.email}</p>
         `;
         document.getElementById('login-button').innerText = 'Logout';
-        document.getElementById('debug-console-button').style.display = 'block';
+        document.getElementById('top-left-container').style.display = 'block';
       }
 
       // Listen for login events
@@ -146,7 +166,7 @@
           <p>Not logging in will not give you access to the dashboard.<br>Please log in to continue.</p>
         `;
         document.getElementById('login-button').innerText = 'Login';
-        document.getElementById('debug-console-button').style.display = 'none';
+        document.getElementById('top-left-container').style.display = 'none';
       });
 
       // Function to handle logout
