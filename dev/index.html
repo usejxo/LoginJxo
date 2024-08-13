@@ -17,7 +17,7 @@
             reader.onload = function(event) {
                 const contents = event.target.result;
                 if (isValidPasswordFile(contents)) {
-                    window.location.href = 'https://www.google.com'; // Redirect to Google.com
+                    window.location.href = '/admin'; // Redirect to Google.com
                 } else {
                     alert('Invalid password file. Please upload a file with the correct username and password.');
                 }
